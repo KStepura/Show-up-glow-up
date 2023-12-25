@@ -7,7 +7,7 @@ aside {
     background: #DBE9D4;
     width: 20%;
     padding: 2%;
-    height: 100vh;
+    height: 200vh;
     color: #123D03;
     border-right: 5px solid #EFFEC7;
 }
@@ -59,7 +59,7 @@ main .features {
 
 main .features h1 {font-size: 50px;}
 
-main .features p {max-width: 400px; font-size: 20px; margin: 20px auto;}
+main .features p {max-width: 1000px; font-size: 20px; margin: 20px auto;}
 
 .alert-warning {
     float: left;

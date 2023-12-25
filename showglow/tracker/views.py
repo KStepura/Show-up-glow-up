@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Notes
 from .forms import NotesForm
+from django.urls import reverse_lazy
 from django.views.generic import DetailView, UpdateView, DeleteView
 
 def tracker_home(request):
@@ -12,10 +13,13 @@ class TrackerDetailView(DetailView):
     template_name = 'tracker/details_view.html'
     context_object_name = 'tracker'
 
+
 class TrackerUpdateView(UpdateView):
     model = Notes
     template_name = 'tracker/create.html'
     form_class = NotesForm
+    success_url = reverse_lazy('tracker_home')
+
 
 class TrackerDeleteView(DeleteView):
     model = Notes
