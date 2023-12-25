@@ -4,16 +4,52 @@
 
 {% block content %}
     <div class="features">
-        <h1>Мои цели, прогресс и заметки</h1>
+        <h1>Мои трекеры</h1>
 
         {% if trackers %}
-            {% for el in trackers %}
-                <div class="alert alert-warning">
-                    <h3>{{ el.title }}</h3>
-                    <p>{{ el.anons }}</p>
-                    <a href="{% url 'tracker-detail' el.id %}" class="btn btn-success">Читать</a>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Выполненные цели</h2>
+                    {% for el in trackers %}
+                        {% if el.current_value == el.anons %}
+                            <div class="alert alert-success text-center mb-3">
+                                <h3>{{ el.title }}</h3>
+                                <div class="bg-light p-3 border border-white rounded">
+                                    <p style="font-weight: bold;">{{ el.anons }}</p>
+                                    <p>{{ el.full_text }}</p>
+                                        <form method="post" action="{% url 'tracker-delete' el.id %}" style="display: inline; margin-left: 10px;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-success">Done</button>
+                                        </form>
+                                    <p style="font-size: 0.8em; color: #555; margin-top: 0; margin-bottom: 0;">Выполнено: {{ el.date|date:'d.m.y' }}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
-            {% endfor %}
+
+                <div class="col-md-6">
+                    <h2>Невыполненные цели</h2>
+                    {% for el in trackers %}
+                        {% if el.current_value != el.anons %}
+                        <div class="alert alert-warning text-center mb-3">
+                            <h3>{{ el.title }}</h3>
+                            <div class="bg-light p-3 border border-white rounded">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <p style="font-weight: bold; margin: 0;">{{ el.anons }}</p>
+                                    <p style="margin: 0;">{{ el.current_value }}</p>
+                                </div>
+                                <p>{{ el.full_text }}</p>
+                                <div class="d-flex justify-content-center align-items-center">
+                                     <a href="{% url 'tracker-update' el.id %}" class="btn btn-warning">Обновить значение</a>
+                                </div>
+                                <p style="font-size: 0.8em; color: #555; margin-top: 0; margin-bottom: 0;">Последнее обновление: {{ el.date|date:'d.m.y' }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
         {% else %}
             <p>У вас нет трекеров!</p>
         {% endif %}

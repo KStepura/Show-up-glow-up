@@ -1,10 +1,10 @@
 from .models import Notes
-from django.forms import ModelForm, TextInput, DateTimeInput, Textarea
+from django.forms import ModelForm, TextInput, SelectDateWidget, Textarea
 
 class NotesForm(ModelForm):
     class Meta:
         model = Notes
-        fields = ['title', 'anons', 'full_text', 'date']
+        fields = ['title', 'anons', 'full_text','current_value', 'date']
 
         widgets = {
             "title": TextInput(attrs={
@@ -13,10 +13,13 @@ class NotesForm(ModelForm):
             "anons": TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Цель'}),
-            "date": DateTimeInput(attrs={
+            "current_value": TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Нынешнее значение'}),
+            "date": SelectDateWidget(attrs={
                 'class': 'form-control',
                 'placeholder': 'Дата'}),
             "full_text": Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': 'Прогресс'}),
+                'placeholder': 'Описание'}),
         }
