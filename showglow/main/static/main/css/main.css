@@ -69,6 +69,14 @@ main .features p {max-width: 1000px; font-size: 20px; margin: 20px auto;}
     margin: 10px 10%;
 }
 
+.alert-success {
+    float: left;
+    clear: both;
+    text-align: left;
+    width: 500px;
+    margin: 10px 10%;
+}
+
 form {
     margin-left: 20%;
     width: 500px;
